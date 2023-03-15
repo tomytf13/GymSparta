@@ -1,48 +1,45 @@
 import { Injectable } from '@nestjs/common';
-import { Task, TaskStatus } from './task.entity';
-import { v4} from 'uuid';
-import { UpdateTaskDto } from './dto/tasks.dto';
+import { CreateTaskDto, UpdateTaskDto } from './dto/tasks.dto';
+import { TaskInterface } from './interfaces/tasks.interface';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+
 @Injectable()
+
 export class TasksService {
 
-    private tasks:Task[] =[
-        {
-            id: '1',
-            title: 'First Task',
-            description: "Some task",
-            status: TaskStatus.PENDING,
-        }
-    ]
-  
 
-    getAllTasks() {
-    return this.tasks;
+
+    constructor(@InjectModel('Task') private readonly taskModel: Model<TaskInterface>) { }
+
+
+    async getAllTasks(): Promise<TaskInterface[]> {
+        const tasks = await this.taskModel.find()
+        return tasks;
+
     }
-    createTasks(title:string,description:string, status:TaskStatus) {
-        const task = {
-            id: v4(),
-            title,
-            description,
-            status
-        }
-        this.tasks.push(task)
+
+    async getTaskById(id: string): Promise<TaskInterface> {
+        const task = await this.taskModel.findById(id)
 
         return task;
     }
-    deleteTask(id:string) { 
-        this.tasks= this.tasks.filter(task=> task.id!==id)
+    async createTasks(createTaskDTO: CreateTaskDto): Promise<TaskInterface> {
+        const task = new this.taskModel(createTaskDTO);
+        return await task.save();
     }
 
-    getTaskById(id:string): Task {
-      return this.tasks.find(task=> task.id===id)
+    async deleteTask(id: string): Promise<TaskInterface> {
+        const deletedTask = this.taskModel.findByIdAndDelete(id)
+        return deletedTask;
     }
 
-    updateTasks(id:string, updatedFields: UpdateTaskDto) : Task {
-        const task = this.getTaskById(id)
-        const newTask = Object.assign(task,updatedFields)
-        this.tasks = this.tasks.map(task=> task.id===id ? newTask : task)
-        return newTask;
-    }   
+
+
+    async updateTasks(id: string, updatedFields: UpdateTaskDto): Promise<TaskInterface> {
+        const updatedTask = await this.taskModel.findByIdAndUpdate(id, updatedFields,{new:true});
+        return updatedTask
+    }
 
 
 }
