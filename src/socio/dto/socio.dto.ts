@@ -32,6 +32,7 @@ export class CreateSocioDTO{
 
     @IsString()
     @IsNotEmpty()
+    @MinLength(8)
     dni: string
 
     @IsString()
