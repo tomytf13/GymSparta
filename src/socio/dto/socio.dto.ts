@@ -47,6 +47,8 @@ export class CreateSocioDTO{
     @IsOptional()
     estado:string
 
+    image:string
+
 }
 
 export class UpdateSocioDTO{
@@ -94,3 +96,4 @@ export class UpdateSocioDTO{
     status: SocioEstado
 
 }
+

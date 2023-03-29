@@ -1,3 +1,5 @@
+import { Transform } from "class-transformer"
+
 export enum SocioEstado{
     ACTIVO = "ACTIVO",
     INACTIVO = "INACTIVO"

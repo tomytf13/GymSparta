@@ -1,23 +1,30 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseInterceptors } from '@nestjs/common';
+import { UploadedFile } from '@nestjs/common/decorators';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import path, { parse } from 'path';
+import { Observable, of } from 'rxjs';
+import { ImageDTO } from 'src/image/dto/image.dto';
 import { CreateSocioDTO, UpdateSocioDTO } from './dto/socio.dto';
 import { SocioService } from './socio.service';
+import { v4 as uuidv4 } from 'uuid';
 
 @Controller('socio')
 export class SocioController {
-    constructor(private socioService: SocioService){}
+    constructor(private socioService: SocioService) { }
 
     @Get()
     async getAllSocios() {
-        return  await this.socioService.getAllSocios()
+        return await this.socioService.getAllSocios()
     }
 
     @Get(':id')
     async getSocio(@Param('id') id: string) {
-        return  await this.socioService.getSocioById(id)
+        return await this.socioService.getSocioById(id)
     }
 
     @Post()
-    async createSocio(@Res() res,@Body() newSocio: CreateSocioDTO) {
+    async createSocio(@Res() res, @Body() newSocio: CreateSocioDTO) {
         const socio = await this.socioService.createSocio(newSocio)
         return res.status(HttpStatus.OK).json({
             message: "Socio creado con exito!",
@@ -26,7 +33,7 @@ export class SocioController {
     }
 
     @Delete(':id')
-    async deleteSocio(@Res() res,@Param('id') id: string) {
+    async deleteSocio(@Res() res, @Param('id') id: string) {
         const deletedSocio = await this.socioService.deleteSocio(id)
         return res.status(HttpStatus.OK).json({
             message: "Socio eliminado con exito!",
@@ -35,12 +42,14 @@ export class SocioController {
 
     @Put(':id')
     async updateSocio(@Res() res, @Param('id') id: string, @Body() updatedFields: UpdateSocioDTO) {
-        const updatedSocio =  await this.socioService.updateSocio(id, updatedFields)
+        const updatedSocio = await this.socioService.updateSocio(id, updatedFields)
         return res.status(HttpStatus.OK).json({
             message: "Socio editado con exito!",
             socio: updatedSocio
         })
-
     }
+
+
+
 
 }

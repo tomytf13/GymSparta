@@ -1,6 +1,8 @@
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { ImageDTO } from "src/image/dto/image.dto";
+import { ImageInterface } from "src/image/interfaces/image.interface";
 import { CreateSocioDTO, UpdateSocioDTO } from "./dto/socio.dto";
 import { SocioInterface } from "./interfaces/socio.interface";
 
@@ -8,6 +10,7 @@ import { SocioInterface } from "./interfaces/socio.interface";
 export class SocioService {
 
 constructor(@InjectModel('Socio') private readonly socioModel: Model<SocioInterface>) { }
+
 
 async getAllSocios(): Promise<SocioInterface[]> {
     const socios = await this.socioModel.find()
