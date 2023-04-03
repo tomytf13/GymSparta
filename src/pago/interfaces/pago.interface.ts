@@ -8,5 +8,6 @@ export interface PagoInterface extends Document{
     tipoEntrenamiento: TipoDeEntrenamiento,
     tipoPago: TipoDePago,
     monto: String,
+    vencimiento: Date
 }
 

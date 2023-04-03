@@ -18,4 +18,6 @@ export class CreatePagoDTO {
     @IsNotEmpty()
     monto: string
 
+    vencimiento: Date
+
 }

@@ -17,4 +17,5 @@ export class Pago{
     tipoEntrenamiento: TipoDeEntrenamiento
     tipoPago: TipoDePago
     monto: string
+    vencimiento: Date
 }

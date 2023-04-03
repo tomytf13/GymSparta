@@ -20,5 +20,14 @@ async createPago(createPagoDTO: CreatePagoDTO): Promise<PagoInterface> {
     return await pago.save();
 }
 
+async getPagoByIdSocio( id: string): Promise<PagoInterface>{
+    
+    const pagos = await this.pagoModel.find()
+    const resultados= pagos.filter(item=>item.idSocio===id)
+    return resultados[resultados.length-1];
+}
+
+
+
 
 }
