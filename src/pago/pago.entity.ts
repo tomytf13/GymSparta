@@ -11,11 +11,14 @@ export enum TipoDePago{
     CLASE = "CLASE"
 }
 
+
 export class Pago{
     id:string
     idSocio: string
     tipoEntrenamiento: TipoDeEntrenamiento
     tipoPago: TipoDePago
     monto: string
+    cuotas: string
     vencimiento: Date
+    fechaPago:Date
 }

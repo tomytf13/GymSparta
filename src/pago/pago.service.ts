@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreatePagoDTO } from "./dto/pago.dto";
 import { PagoInterface } from "./interfaces/pago.interface";
+import { Pago } from "./pago.entity";
 
 @Injectable()
 export class PagoService {
@@ -17,7 +18,8 @@ async getAllPagos(): Promise<PagoInterface[]> {
 
 async createPago(createPagoDTO: CreatePagoDTO): Promise<PagoInterface> {
     const pago = new this.pagoModel(createPagoDTO);
-    return await pago.save();
+    const newPago=calcularFecha(pago);
+    return await newPago.save();
 }
 
 async getPagoByIdSocio( id: string): Promise<PagoInterface>{
@@ -30,4 +32,10 @@ async getPagoByIdSocio( id: string): Promise<PagoInterface>{
 
 
 
+}
+function calcularFecha(pago) {
+    let fechaPago= new Date (pago.fechaPago)
+    let cuotas= pago.cuotas
+    pago.vencimiento=  new Date( fechaPago.getFullYear(),(fechaPago.getMonth()+parseInt(cuotas)),fechaPago.getDate())
+    return pago
 }

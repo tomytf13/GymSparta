@@ -17,7 +17,10 @@ export class CreatePagoDTO {
     @IsString()
     @IsNotEmpty()
     monto: string
-
+    @IsString()
+    @IsNotEmpty()
+    cuotas: string
     vencimiento: Date
+    fechaPago:Date
 
 }
