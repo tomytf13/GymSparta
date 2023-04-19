@@ -1,3 +1,4 @@
+import { Socio } from "src/socio/socio.entity"
 
 export enum TipoDeEntrenamiento{
     CALISTENIA = "CALISTENIA",
@@ -14,7 +15,7 @@ export enum TipoDePago{
 
 export class Pago{
     id:string
-    idSocio: string
+    Socio: Socio
     tipoEntrenamiento: TipoDeEntrenamiento
     tipoPago: TipoDePago
     monto: string

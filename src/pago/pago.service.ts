@@ -25,7 +25,7 @@ async createPago(createPagoDTO: CreatePagoDTO): Promise<PagoInterface> {
 async getPagoByIdSocio( id: string): Promise<PagoInterface>{
     
     const pagos = await this.pagoModel.find()
-    const resultados= pagos.filter(item=>item.idSocio===id)
+    const resultados= pagos.filter(item=>item.socio.id===id)
     return resultados[resultados.length-1];
 }
 

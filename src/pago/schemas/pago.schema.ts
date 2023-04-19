@@ -1,8 +1,9 @@
 import { Schema } from "mongoose";
+import { SocioSchema } from "src/socio/schemas/socio.schema";
 
 export const PagoSchema = new Schema({
     id: String,
-    idSocio: String,
+    socio: SocioSchema,
     tipoEntrenamiento: String,
     tipoPago: String,
     monto: String,

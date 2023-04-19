@@ -1,13 +1,13 @@
 import { IsIn, IsNotEmpty, IsString } from "class-validator"
 import { TipoDeEntrenamiento, TipoDePago } from "../pago.entity"
+import { Socio } from "src/socio/socio.entity"
 
 export class CreatePagoDTO {
 
     id: string
 
-    @IsString()
     @IsNotEmpty()
-    idSocio: string
+    socio: Socio
     @IsString()
     @IsIn([TipoDeEntrenamiento.APARATOS,TipoDeEntrenamiento.CALISTENIA,TipoDeEntrenamiento.FUNCIONAL])
     tipoEntrenamiento: TipoDeEntrenamiento
