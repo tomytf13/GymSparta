@@ -29,9 +29,6 @@ async getPagoByIdSocio( id: string): Promise<PagoInterface>{
     return resultados[resultados.length-1];
 }
 
-
-
-
 }
 function calcularFecha(pago) {
     let fechaPago= new Date (pago.fechaPago)

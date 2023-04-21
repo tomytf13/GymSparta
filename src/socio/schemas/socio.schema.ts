@@ -16,5 +16,5 @@ export const SocioSchema = new Schema({
         type:Date,
         default: Date.now
     },
-    image:String
+    profileImage:String
 })

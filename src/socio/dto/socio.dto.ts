@@ -47,7 +47,7 @@ export class CreateSocioDTO{
     @IsOptional()
     estado:string
 
-    image:string
+    profileImage:string
 
 }
 
@@ -93,7 +93,10 @@ export class UpdateSocioDTO{
     @IsString()
     @IsOptional()
     @IsIn([SocioEstado.ACTIVO,SocioEstado.INACTIVO])
-    status: SocioEstado
+    estado: SocioEstado
+
+    @IsNotEmpty()
+    profileImage:string
 
 }
 

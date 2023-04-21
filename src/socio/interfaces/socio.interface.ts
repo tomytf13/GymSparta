@@ -13,5 +13,6 @@ export interface SocioInterface extends Document{
     celular: String,
     telFijo:String,
     estado: String,
+    profileImage:String
 }
 

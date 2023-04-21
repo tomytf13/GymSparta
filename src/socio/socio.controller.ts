@@ -2,18 +2,19 @@ import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put, Res, UseIn
 import { UploadedFile } from '@nestjs/common/decorators';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import path, { parse } from 'path';
+import path = require('path');
 import { Observable, of } from 'rxjs';
 import { ImageDTO } from 'src/image/dto/image.dto';
 import { CreateSocioDTO, UpdateSocioDTO } from './dto/socio.dto';
 import { SocioService } from './socio.service';
 import { v4 as uuidv4 } from 'uuid';
+import { Socio } from './socio.entity';
 
 @Controller('socio')
 export class SocioController {
     constructor(private socioService: SocioService) { }
 
-    @Get()
+    @Get() 
     async getAllSocios() {
         return await this.socioService.getAllSocios()
     }
@@ -24,6 +25,7 @@ export class SocioController {
     }
 
     @Post()
+    
     async createSocio(@Res() res, @Body() newSocio: CreateSocioDTO) {
         const socio = await this.socioService.createSocio(newSocio)
         return res.status(HttpStatus.OK).json({
@@ -31,6 +33,23 @@ export class SocioController {
             socio: socio
         })
     }
+    // @Post(':id')
+    // @UseInterceptors(FileInterceptor('file',{
+    //     storage: diskStorage({
+    //         destination: './uploads/profileImages',
+    //         filename: (req,file,cb)=>{
+    //             const filename: string = path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
+    //             const extension: string = path.parse(file.originalname).ext;
+    
+    //             cb(null, `${filename}${extension}`)
+    //         }
+    //     })
+    // }))
+    // async uploadFile(@UploadedFile() file,@Param('id') id: string): Observable<UpdateSocioDTO>{
+    //     const socio = await this.socioService.getSocioById(id)
+    //     return this.socioService.updateSocio(id,{profileImage: file.filename}).pipe(tap((socio:Socio)=>console.log(socio);
+    //     ))
+    // }
 
     @Delete(':id')
     async deleteSocio(@Res() res, @Param('id') id: string) {

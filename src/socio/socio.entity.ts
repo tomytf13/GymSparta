@@ -17,4 +17,5 @@ export class Socio{
     celular: string
     telFijo:string
     estado: SocioEstado
+    profileImage: string
 }

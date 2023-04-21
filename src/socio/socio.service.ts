@@ -37,4 +37,9 @@ async updateSocio(id: string, updatedFields: UpdateSocioDTO): Promise<SocioInter
     return updatedSocio
 }
 
+async updateProfileImage(id: string, updatedFields: UpdateSocioDTO): Promise<SocioInterface> {
+    const updatedSocio = await this.socioModel.findByIdAndUpdate(id, updatedFields,{new:true});
+    return updatedSocio
+}
+
 }
