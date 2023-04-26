@@ -95,7 +95,6 @@ export class UpdateSocioDTO{
     @IsIn([SocioEstado.ACTIVO,SocioEstado.INACTIVO])
     estado: SocioEstado
 
-    @IsNotEmpty()
     profileImage:string
 
 }
